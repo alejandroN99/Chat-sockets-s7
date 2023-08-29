@@ -11,11 +11,15 @@ const secretKey = 'abJsbfcjaFnck45';
 export const registerController = async (req: Request,res: Response) => {
     
     const { username, password } = req.body;
+
+    if(!username || !password) {
+        return res.status(401).json({ msg: 'Error, fill in both username and password!'});
+    };
     
     const userExist = await UserModel.findOne({username});
 
     if(userExist){
-        return res.status(401).send('This username already exist!');
+        return res.status(401).json({ msg: 'This username already exist!'});
     };
 
     const newUser = new UserModel({username, password});
@@ -47,11 +51,11 @@ export const loginController = async (req: Request, res: Response) => {
     const validPassword = bcrypt.compareSync( password, userExist.password);
 
     if(!validPassword){
-        return res.status(401).send('username or password is incorrect!');
+        return res.status(401).json({ msg: 'username or password is incorrect!'});
     }
 
      // Generar un token JWT con la información del usuario
-     const token = jwt.sign({ userId: userExist._id, username: userExist.username }, secretKey, { expiresIn: '4h' });
+     const token = jwt.sign({ userId: userExist._id, username: userExist.username }, secretKey, { expiresIn: '10h' });
 
      return res.status(200).json({ msg: `User logged succesfully!`, token });
 

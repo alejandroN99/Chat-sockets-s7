@@ -8,7 +8,7 @@ const RegisterPage = () => {
     const nameRef = React.createRef();
     const passwordRef = React.createRef();
 
-    const registerUser = (props) => {
+    const registerUser = () => {
 
         const username = nameRef.current.value;
         const password = passwordRef.current.value;
@@ -21,14 +21,9 @@ const RegisterPage = () => {
             navigate("/login");
 
         }).catch((err) => {
-            
-            if (
-              err &&
-              err.response &&
-              err.response.data &&
-              err.response.data.message
-            )
-              makeToast("error", err.response.data.msg);
+            if (err && err.response && err.response.data && err.response.data.msg){
+            makeToast("error", err.response.data.msg);
+            }
           });
 
     }
@@ -58,7 +53,8 @@ const RegisterPage = () => {
               />
             </div>
           </div>
-          <button onClick={registerUser}>Register</button>
+            <button onClick={registerUser}>Register</button>
+          
         </div>
     )
 };

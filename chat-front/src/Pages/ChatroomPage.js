@@ -1,11 +1,24 @@
 import React from 'react';
 
-const chatroomPage = () => {
+const ChatroomPage = () => {
     return (
-        <div>
-            Chatroom Page
+        <div className="card">
+          <div className="cardHeader">Chatrooms</div>
+          <div className="cardBody">
+            <div className="inputGroup">
+              <label htmlFor="chatroomName">Chatroom Name</label>
+              <input
+                type="text"
+                name="chatroomName"
+                id="chatroomName"
+                placeholder="Chat Spain"
+              />
+            </div>
+          </div>
+          <button>Create Chatroom</button>
+          
         </div>
-    )
+      );
 };
 
-export default chatroomPage;
+export default ChatroomPage;

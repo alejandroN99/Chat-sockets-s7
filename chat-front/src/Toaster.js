@@ -1,21 +1,24 @@
 import Swal from "sweetalert2";
 
-const Toast = Swal.mixin({
-  toast: true,
-  position: "top-end",
-  showConfirmButton: false,
-  timer: 3000,
-  timerProgressBar: true,
-  onOpen: (toast) => {
-    toast.addEventListener("mouseenter", Swal.stopTimer);
-    toast.addEventListener("mouseleave", Swal.resumeTimer);
-  },
-});
-
 const makeToast = (type, msg) => {
-  Toast.fire({
+  const toast = Swal.mixin({
+    toast: true,
+    position: "top-end",
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+  });
+
+  toast.fire({
     icon: type,
     title: msg,
+  });
+
+  toast.getPopup().addEventListener("willOpen", () => {
+    
+    Swal.stopTimer();
+    toast.getPopup().addEventListener("mouseenter", Swal.stopTimer);
+    toast.getPopup().addEventListener("mouseleave", Swal.resumeTimer);
   });
 };
 

@@ -2,15 +2,19 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import LoginPage from './Pages/loginPage';
 import RegisterPage from './Pages/registerPage';
-import MainPage from './Pages/main';
+import ChatroomPage from './Pages/chatroomPage';
+import IndexPage from './Pages/indexPage';
+import ChatPage from './Pages/chatPage';
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<RegisterPage />} />
-        <Route path="/main" element={<MainPage />} />
+        <Route path='/' element={<IndexPage />} exact />
+        <Route path="/login" element={<LoginPage />} exact/>
+        <Route path="/register" element={<RegisterPage />} exact/>
+        <Route path="/chatroom" element={<ChatroomPage />} exact/>
+        <Route path="/chat" element={<ChatPage />} exact/>
       </Routes>
     </BrowserRouter>
   );

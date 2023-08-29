@@ -68,6 +68,13 @@ button {
   border-radius: 2px;
   width: 100%;
   text-transform: uppercase;
+  margin-right: 0.5rem;
+}
+
+.buttonGroup {
+  display: flex;
+  justify-content: center;
+  margin-top: 1.5rem;
 }
 
 .chatrooms {

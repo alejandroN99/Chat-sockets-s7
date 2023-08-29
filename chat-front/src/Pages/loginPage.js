@@ -9,6 +9,10 @@ const LoginPage = () => {
   const usernameRef = React.createRef();
   const passwordRef = React.createRef(); 
 
+  const alreadyRegisterUser = () => {
+    navigate("/register");
+  }
+
   const loginUser = () => {
     const username = usernameRef.current.value;
     const password = passwordRef.current.value;
@@ -18,15 +22,14 @@ const LoginPage = () => {
         password
     }).then( (response) => {
       makeToast('success', response.data.msg);
-      navigate('/main');
+      localStorage.setItem('CU_Token', response.data.token);
+
+      navigate("/chatroom");
+
     }).catch( (err) => {
-      if (
-        err &&
-        err.response &&
-        err.response.data &&
-        err.response.data.message
-      )
-      makeToast("error", err.response.data.msg);
+      if (err && err.response && err.response.data && err.response.data.msg){
+        makeToast("error", err.response.data.msg);
+      }
     })
 
 
@@ -56,7 +59,10 @@ const LoginPage = () => {
               />
             </div>
           </div>
-          <button onClick={loginUser}>Login</button>
+          <div className='buttonGroup'>
+            <button onClick={loginUser}>Login</button>
+            <button onClick={alreadyRegisterUser}>Go register</button>
+          </div>
         </div>
       );
     
