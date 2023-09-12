@@ -14,7 +14,7 @@ function App() {
         <Route path="/login" element={<LoginPage />} exact/>
         <Route path="/register" element={<RegisterPage />} exact/>
         <Route path="/chatroom" element={<ChatroomPage />} exact/>
-        <Route path="/chat" element={<ChatPage />} exact/>
+        <Route path="/chat/:id" element={<ChatPage />} exact/>
       </Routes>
     </BrowserRouter>
   );

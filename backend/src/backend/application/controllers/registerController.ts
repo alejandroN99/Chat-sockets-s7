@@ -55,7 +55,8 @@ export const loginController = async (req: Request, res: Response) => {
     }
 
      // Generar un token JWT con la información del usuario
-     const token = jwt.sign({ userId: userExist._id, username: userExist.username }, secretKey, { expiresIn: '10h' });
+     const payload = { userId: userExist._id, username: userExist.username };
+     const token = jwt.sign(payload, secretKey);
 
      return res.status(200).json({ msg: `User logged succesfully!`, token });
 

@@ -22,3 +22,15 @@ export const chatroomController = async (req: Request,res: Response) => {
         msg: `Chatroom ${name} created successfuly!`
     });
 };
+
+export const getAllChatrooms = async (_req: Request, res: Response) => {
+    const allChatrooms = await ChatroomModel.find({});
+
+    if(!allChatrooms){
+        res.status(401).json({
+            msg: 'Do not exist chatrooms!'
+        });
+    }
+
+    res.json(allChatrooms);
+}

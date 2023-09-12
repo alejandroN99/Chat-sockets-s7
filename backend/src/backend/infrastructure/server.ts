@@ -4,11 +4,13 @@ import { createServer, IncomingMessage, ServerResponse, Server as httpServer } f
 import { Server as WebSocketServer } from "socket.io";
 import { connect } from "mongoose";
 import path from 'path';
-import { socketController } from "../application/socketsController";
+import { socketController } from "../application/controllers/socketsController";
 import { DefaultEventsMap } from "socket.io/dist/typed-events";
 import { routerRegister } from "../application/routes/routesRegister";
 import * as dotenv from 'dotenv';
 import { routerChatroom } from "../application/routes/routesChatroom";
+import { tokenSocket } from "../domain/middlewares/tokenSocket";
+
 dotenv.config();
 
 
@@ -34,7 +36,7 @@ export class Server {
     this.routes();
 
     //Sockets
-    this.sockets();
+    this.initSocket();
   }
 
   async dbConnection() {
@@ -62,9 +64,12 @@ export class Server {
     this.app.use('/chatroom', routerChatroom);
   }
 
-  sockets() {
+  initSocket() {
+    this.io.use(tokenSocket);
     this.io.on('connection', socketController);
   }
+
+
 
   listen() {
     this.server.listen(this.port, () => {
