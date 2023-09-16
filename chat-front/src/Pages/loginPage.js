@@ -3,13 +3,13 @@ import axios from 'axios';
 import makeToast from '../Toaster';
 import { useNavigate } from 'react-router-dom';
 
-const LoginPage = () => {
+const LoginPage = (props) => {
 
   const navigate = useNavigate();
   const usernameRef = React.createRef();
   const passwordRef = React.createRef(); 
 
-  const alreadyRegisterUser = () => {
+  const noRegisterUser = () => {
     navigate("/register");
   }
 
@@ -25,6 +25,7 @@ const LoginPage = () => {
       localStorage.setItem('CU_Token', response.data.token);
 
       navigate("/chatroom");
+      props.setupSocket();
 
     }).catch( (err) => {
       if (err && err.response && err.response.data && err.response.data.msg){
@@ -61,7 +62,7 @@ const LoginPage = () => {
           </div>
           <div className='buttonGroup'>
             <button onClick={loginUser}>Login</button>
-            <button onClick={alreadyRegisterUser}>Go register</button>
+            <button onClick={noRegisterUser}>Go register</button>
           </div>
         </div>
       );

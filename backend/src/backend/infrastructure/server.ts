@@ -24,7 +24,13 @@ export class Server {
     this.app = express();
     this.port = process.env.PORT || "8080";
     this.server = createServer(this.app);
-    this.io = new WebSocketServer(this.server);
+    this.io = new WebSocketServer(this.server,{
+      cors: {
+        origin: "http://localhost:3000",
+        methods: ["GET", "POST"],
+        credentials: true // Habilita el intercambio de cookies o encabezados de autenticación
+      }
+    });
 
     //database connection
     this.dbConnection();
@@ -66,7 +72,9 @@ export class Server {
 
   initSocket() {
     this.io.use(tokenSocket);
-    this.io.on('connection', socketController);
+    this.io.on('connection', (socket) => {
+      socketController(socket, this.io);
+    });
   }
 
 

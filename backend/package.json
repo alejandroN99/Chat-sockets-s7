@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "start": "nodemon C:/Users/aleja/OneDrive/Documentos/chat-sockets-s7/Chat-sockets-s7/src/backend/app.ts"
+    "start": "nodemon chat-sockets-s7/Chat-sockets-s7/backend/src/backend/app"
   },
   "keywords": [],
   "author": "",
