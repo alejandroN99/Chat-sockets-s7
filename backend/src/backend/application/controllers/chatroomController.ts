@@ -8,7 +8,7 @@ export const chatroomController = async (req: Request,res: Response) => {
 
     if(chatroomExist){
         res.status(401).json({
-            msg: 'Chatroom with that name already exist!'
+            msg: 'Chatroom with that name already exists!'
         });
     }
 
@@ -19,7 +19,7 @@ export const chatroomController = async (req: Request,res: Response) => {
     await chatroom.save();
 
     res.status(200).json({
-        msg: `Chatroom ${name} created successfuly!`
+        msg: `Chatroom ${name} created successfully!`
     });
 };
 

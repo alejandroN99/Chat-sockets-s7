@@ -11,7 +11,7 @@ import * as dotenv from 'dotenv';
 import { routerChatroom } from "../application/routes/routesChatroom";
 import { tokenSocket } from "../domain/middlewares/tokenSocket";
 
-dotenv.config();
+dotenv.config({path:'../../.env'});
 
 
 export class Server {
@@ -83,6 +83,10 @@ export class Server {
     this.server.listen(this.port, () => {
       console.log("Server connected on port", this.port);
     });
+  }
+
+  getApp() {
+    return this.app;
   }
 };
 

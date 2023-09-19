@@ -3,10 +3,10 @@ import { UserModel } from "../../domain/userSchema";
 import bcrypt from 'bcrypt';
 import jwt, { Secret } from 'jsonwebtoken';
 import * as dotenv from 'dotenv';
-dotenv.config();
+dotenv.config({path:'../../.env'});
 
 
-const secretKey = 'abJsbfcjaFnck45';
+const secretKey = process.env.SECRET;
 
 export const registerController = async (req: Request,res: Response) => {
     
@@ -56,8 +56,10 @@ export const loginController = async (req: Request, res: Response) => {
 
      // Generar un token JWT con la información del usuario
      const payload = { userId: userExist._id, username: userExist.username };
-     const token = jwt.sign(payload, secretKey);
-
-     return res.status(200).json({ msg: `User logged succesfully!`, token });
+     
+     if(secretKey){
+        const token = jwt.sign(payload, secretKey);
+        return res.status(200).json({ msg: `User logged succesfully!`, token });
+    }
 
 };

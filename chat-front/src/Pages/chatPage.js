@@ -37,6 +37,10 @@ const ChatPage = ({ socket }) => {
         console.log("New messages state:", newMessages);
         setMessage(newMessages);
       });
+
+      socket.on("users", (users) => {
+        console.log(users);
+      })
     }
   }, [socket, messages]);
   

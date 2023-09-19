@@ -7,7 +7,7 @@ import { Server } from "../../infrastructure/server";
 export const socketController = (socket: CustomSocket , io: Server["io"]) => {
   console.log("user connected!:"+" "+ socket.userId);
 
-  socket.on("get_users", async () => {
+  socket.on("get_users", async ({}) => {
     const users = await UserModel.find({}, (err: Error, users: IUser) => {
       if (err) throw err;
         socket.emit("users", users);
@@ -43,10 +43,15 @@ export const socketController = (socket: CustomSocket , io: Server["io"]) => {
     }
   })
 
-  socket.on('joinChatroom', ({chatroomId}) => {
+  socket.on('joinChatroom', async ({chatroomId}) => {
     socket.join(chatroomId);
     console.log(`A user joined chatroom: ${chatroomId}`);
+
+    const users = await UserModel.find({});
+
+    io.to(chatroomId).emit("users", users);
   });
+  
 
   socket.on('leaveChatroom', ({chatroomId}) => {
     socket.leave(chatroomId);

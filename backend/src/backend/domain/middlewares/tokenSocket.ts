@@ -3,6 +3,7 @@ import { CustomSocket } from '../../domain/interfaces/customSocket';
 import { ExtendedError } from 'socket.io/dist/namespace';
 
 
+
 export const tokenSocket = async (socket: CustomSocket, next: (err?: ExtendedError | undefined) => void) => {
     try {
       const token = socket.handshake.query.token;
