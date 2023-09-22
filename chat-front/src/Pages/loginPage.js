@@ -25,7 +25,7 @@ const LoginPage = (props) => {
       localStorage.setItem('CU_Token', response.data.token);
 
       navigate("/chatroom");
-      props.setupSocket();
+      props.setupSocket('CU_Token');
 
     }).catch( (err) => {
       if (err && err.response && err.response.data && err.response.data.msg){

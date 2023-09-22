@@ -5,6 +5,7 @@ const IndexPage = () => {
     const navigate = useNavigate();
 
         React.useEffect(() => {
+            localStorage.clear();
             const token = localStorage.getItem('CU_Token');
 
             if(!token) {

@@ -9,6 +9,7 @@ const ChatPage = ({ socket }) => {
   const messageRef = React.createRef();
   const [messages, setMessage] = React.useState([]);
   const [userId, setUserId] = React.useState("");
+const userToken = localStorage.getItem("CU_Token") || localStorage.getItem("G_Token");
 
   const sendMessage = () => {
     if (socket) {
@@ -23,15 +24,14 @@ const ChatPage = ({ socket }) => {
 
   React.useEffect(() => {
     if (socket) {
-      const token = localStorage.getItem("CU_Token");
-      if (token) {
-        const payload = JSON.parse(atob(token.split(".")[1]));
-        setUserId(payload.userId);
-      }
+      const payloadToken = userToken.split(".")[1];
+      const payload = JSON.parse(atob(payloadToken));
+      const userId = payload.userId;
+      setUserId(userId);
 
       socket.on("newMessage", (message) => {
         console.log("Received newMessage:", message);
-    
+
         // Actualiza el estado 'messages' aquí
         const newMessages = [...messages, message];
         console.log("New messages state:", newMessages);
@@ -40,14 +40,11 @@ const ChatPage = ({ socket }) => {
 
       socket.on("users", (users) => {
         console.log(users);
-      })
-    }
-  }, [socket, messages]);
-  
-  React.useEffect(() => {
-    if (socket) {
+      });
+
       socket.emit("joinChatroom", {
         chatroomId,
+        userId,
       });
     }
 
@@ -58,13 +55,13 @@ const ChatPage = ({ socket }) => {
         });
       }
     };
-    //eslint-disable-next-line
-  }, []);
+    // eslint-disable-next-line
+  }, [socket, messages, chatroomId, userToken]);
 
   return (
     <div className="chatroomPage">
       <div className="chatroomSection">
-        <div className="cardHeader">Chatroom Name</div>
+        <div className="cardHeader">Chatroom</div>
         <div className="chatroomContent">
           {messages.map((message, i) => (
             <div key={i} className="message">

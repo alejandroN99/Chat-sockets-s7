@@ -5,12 +5,13 @@ import makeToast from "../Toaster";
 
 const ChatroomPage = () => {
   const [allChatrooms, setChatrooms] = React.useState([]);
+  const userToken = localStorage.getItem("CU_Token") || localStorage.getItem("G_Token");
 
   const getChatrooms = () => {
     axios
       .get("http://localhost:8080/chatroom", {
         headers: {
-          Authorization: "Bearer " + localStorage.getItem("CU_Token"),
+          Authorization: "Bearer " + userToken,
         },
       })
       .then((res) => {
@@ -33,27 +34,28 @@ const ChatroomPage = () => {
   const createChatroom = () => {
     const name = nameRef.current.value;
 
-    axios.post(
-      "http://localhost:8080/chatroom",
-      {
-        name,
-      },
-      {
-        headers: {
-          Authorization: "Bearer " + localStorage.getItem("CU_Token"), 
+    axios
+      .post(
+        "http://localhost:8080/chatroom",
+        {
+          name,
         },
-      }
-    ).then((response) => {
-      makeToast('success', response.data.msg);
-      
-    }).catch( (err) => {
-      if (err && err.response && err.response.data && err.response.data.msg){
-        makeToast("error", err.response.data.msg);
-      }
-    })
-
-
+        {
+          headers: {
+            Authorization: "Bearer " + userToken,
+          },
+        }
+      )
+      .then((response) => {
+        makeToast("success", response.data.msg);
+      })
+      .catch((err) => {
+        if (err && err.response && err.response.data && err.response.data.msg) {
+          makeToast("error", err.response.data.msg);
+        }
+      });
   };
+
   return (
     <div className="card">
       <div className="cardHeader">Chatrooms</div>

@@ -4,6 +4,7 @@ import RegisterPage from "./Pages/registerPage";
 import ChatroomPage from "./Pages/chatroomPage";
 import IndexPage from "./Pages/indexPage";
 import ChatPage from "./Pages/chatPage";
+import  GoogleSignIn from "./Pages/googleLogin";
 import React from "react";
 import io from "socket.io-client";
 import makeToast from "./Toaster";
@@ -11,13 +12,14 @@ import makeToast from "./Toaster";
 function App() {
   const [socket, setSocket] = React.useState(null);
 
-  const setupSocket = () => {
-    const token = localStorage.getItem("CU_Token");
+  const setupSocket = (typeToken) => {
+    const token = localStorage.getItem(typeToken);
     if (token && !socket) {
       const newSocket = io("http://localhost:8080", {
         query: {
-          token: localStorage.getItem("CU_Token"),
+          token: localStorage.getItem(typeToken),
         },
+    
       });
 
       newSocket.on("disconnect", () => {
@@ -35,13 +37,14 @@ function App() {
   };
 
   React.useEffect(() => {
-    setupSocket();
+    setupSocket('CU_Token');
     //eslint-disable-next-line
   }, []);
 
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="/google" element={<GoogleSignIn setupSocket={setupSocket} />} exact />
         <Route path="/" element={<IndexPage />} exact />
         <Route
           path="/login"
@@ -59,6 +62,5 @@ function App() {
     </BrowserRouter>
   );
 }
-
 
 export default App;

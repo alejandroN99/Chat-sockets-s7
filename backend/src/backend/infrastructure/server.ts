@@ -26,7 +26,7 @@ export class Server {
     this.server = createServer(this.app);
     this.io = new WebSocketServer(this.server,{
       cors: {
-        origin: "http://localhost:3000",
+        origin: ["http://localhost:3000","https://accounts.google.com",],
         methods: ["GET", "POST"],
         credentials: true // Habilita el intercambio de cookies o encabezados de autenticación
       }
@@ -57,6 +57,7 @@ export class Server {
   middlewares() {
     //CORS
     this.app.use(cors());
+    
     this.app.use(express.json());
 
     //Path public, frontend

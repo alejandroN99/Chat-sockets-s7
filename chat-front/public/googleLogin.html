@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Google-SingIn</title>
+  </head>
+  <body>
+    <h1>Google-Sing-In</h1>
+
+    <div
+      id="g_id_onload"
+      data-client_id="627415390447-9glplqmq1o1kv1l1b6bvql3gplm92k90.apps.googleusercontent.com"
+      data-auto_prompt="false"
+      data-callback="handleCredentialResponse">
+    </div>
+    <div
+      class="g_id_signin"
+      data-type="standard"
+      data-size="large"
+      data-theme="outline"
+      data-text="sign_in_with"
+      data-shape="rectangular"
+      data-logo_alignment="left"
+    ></div>
+
+    <script src="https://accounts.google.com/gsi/client" async></script>
+
+    <script>
+        function handleCredentialResponse(response) {
+           // decodeJwtResponse() is a custom function defined by you
+           // to decode the credential response.
+           const responsePayload = decodeJwtResponse(response.credential);
+           console.log('id_Token:'+ response.credential)
+        }
+    </script>
+
+  </body>
+</html>
