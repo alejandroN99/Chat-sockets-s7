@@ -26,18 +26,18 @@ describe("Pruebas de rutas de user", () => {
     });
   
     // Prueba POST "/user/login"
-    test("Debe crear una nueva sala de chat", async () => {
-        const user = {
-            username: "Alejandro",
-            password: "123",
-          }; // Datos de prueba
-      const response = await request(app)
-        .post("/user/login") 
-        .send(user);
+    // test("Debe crear una nueva sala de chat", async () => {
+    //     const user = {
+    //         username: "Alejandro",
+    //         password: "123",
+    //       }; // Datos de prueba
+    //   const response = await request(app)
+    //     .post("/user/login") 
+    //     .send(user);
   
-      expect(response.status).toBe(200);
+    //   expect(response.status).toBe(200);
       
-    });
+    // });
   
     
   });

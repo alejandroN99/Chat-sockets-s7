@@ -71,7 +71,7 @@ export const googleController = async (req: Request, res: Response) => {
   
     try {
       payload = await verify(id_token);
-      console.log(payload);
+      
       if (payload) {
         const { given_name } = payload;
   

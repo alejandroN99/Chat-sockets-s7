@@ -9,10 +9,11 @@
     "esModuleInterop": true,
     "noEmitOnError": false,
     "removeComments": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "types": ["jest"] 
   },
   "include": [
-      "./src//*",
-      "./tests//*"
+    "./src//*",
+    "./tests//*"
   ]
 }

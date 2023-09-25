@@ -32,7 +32,7 @@ export const socketController = (socket: CustomSocket , io: Server["io"]) => {
           name: user.username,
           userId: socket.userId
         }
-        console.log(sendMessage);
+       
         
         io.to(chatroomId).emit("newMessage", sendMessage );
 

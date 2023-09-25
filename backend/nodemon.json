@@ -1,0 +1,10 @@
+{
+    "watch": ["src/backend"], 
+    "ext": "ts,json", 
+    "exec": "ts-node src/backend/app.ts",
+    "env": {
+      "NODE_ENV": "development"
+    },
+    "ignore": ["node_modules"] 
+  }
+  
