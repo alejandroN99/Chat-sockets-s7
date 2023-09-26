@@ -2,6 +2,8 @@ import { Request, Response } from "express";
 import { chatroomController, getAllChatrooms } from "../../../src/backend/application/controllers/chatroomController";
 import { ChatroomModel } from "../../../src/backend/domain/chatroomSchema";
 
+
+
 jest.mock("../../../src/backend/domain/chatroomSchema"); // Mockear el módulo ChatroomModel
 
 describe("chatroomController", () => {

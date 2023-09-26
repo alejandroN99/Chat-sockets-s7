@@ -13,7 +13,7 @@
     "types": ["jest"] 
   },
   "include": [
-    "./src//*",
-    "./tests//*"
+    "src/**/*.ts",   
+    "tests/**/*.ts"  
   ]
 }
